@@ -308,6 +308,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #3
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Typed data clients with recorded-fixture tests.
+- **Status:** DONE (2026-06-23)
 - **Done when:** Tests pass against captured NWS + Open-Meteo fixture responses; empty-AQI,
   NWS-403, network-timeout, and non-US-lat/lon paths each degrade without throwing.
 - **Depends on:** 1, 2
