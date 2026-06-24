@@ -279,6 +279,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Done when:** `npx expo start` boots without error; `npm test`, `npm run typecheck`,
   `npm run lint` all pass.
 - **Depends on:** none
+- **Status:** DONE (2026-06-23)
 
 ### Step 2: Domain core — verdict engine (pure)
 - **Problem:** Implement `src/domain/`: `heatIndex.ts` (Rothfusz, Appendix C),
