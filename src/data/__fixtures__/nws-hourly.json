@@ -1,0 +1,45 @@
+{
+  "properties": {
+    "periods": [
+      {
+        "number": 1,
+        "startTime": "2025-06-21T12:00:00-05:00",
+        "endTime": "2025-06-21T13:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 88,
+        "temperatureUnit": "F",
+        "relativeHumidity": { "value": 55 },
+        "dewpoint": { "value": 18.3 },
+        "windSpeed": "5 mph",
+        "probabilityOfPrecipitation": { "value": 10 },
+        "shortForecast": "Sunny"
+      },
+      {
+        "number": 2,
+        "startTime": "2025-06-21T13:00:00-05:00",
+        "endTime": "2025-06-21T14:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 90,
+        "temperatureUnit": "F",
+        "relativeHumidity": { "value": 50 },
+        "dewpoint": { "value": 18.0 },
+        "windSpeed": "5 to 10 mph",
+        "probabilityOfPrecipitation": { "value": 20 },
+        "shortForecast": "Mostly Sunny"
+      },
+      {
+        "number": 3,
+        "startTime": "2025-06-21T23:00:00-05:00",
+        "endTime": "2025-06-22T00:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 72,
+        "temperatureUnit": "F",
+        "relativeHumidity": { "value": null },
+        "dewpoint": { "value": 17.2 },
+        "windSpeed": "10 to 15 mph",
+        "probabilityOfPrecipitation": { "value": null },
+        "shortForecast": "Mostly Clear"
+      }
+    ]
+  }
+}

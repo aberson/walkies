@@ -1,0 +1,16 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "event": "Heat Advisory",
+        "severity": "Moderate",
+        "headline": "Heat Advisory issued June 21 at 11:00AM CDT until June 21 at 8:00PM CDT",
+        "onset": "2025-06-21T11:00:00-05:00",
+        "ends": "2025-06-21T20:00:00-05:00",
+        "description": "Heat index values up to 105 expected. Hot temperatures and high humidity may cause heat illnesses."
+      }
+    }
+  ]
+}

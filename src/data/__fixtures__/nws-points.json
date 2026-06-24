@@ -1,0 +1,9 @@
+{
+  "properties": {
+    "gridId": "MPX",
+    "gridX": 107,
+    "gridY": 71,
+    "forecastHourly": "https://api.weather.gov/gridpoints/MPX/107,71/forecast/hourly",
+    "forecastGridData": "https://api.weather.gov/gridpoints/MPX/107,71"
+  }
+}

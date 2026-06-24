@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "skyCover": {
+      "uom": "wmoUnit:percent",
+      "values": [
+        { "validTime": "2025-06-21T17:00:00+00:00/PT1H", "value": 20 },
+        { "validTime": "2025-06-21T18:00:00+00:00/PT2H", "value": 40 },
+        { "validTime": "2025-06-22T00:00:00+00:00/PT6H", "value": 75 }
+      ]
+    }
+  }
+}
