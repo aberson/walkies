@@ -355,6 +355,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #6
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Scheduling logic + registered background task + permission flow.
+- **Status:** DONE (2026-06-23)
 - **Done when:** Unit tests cover window→notification payload building and the 24h/limit cap;
   rescheduling twice in a row yields the same pending set (no duplicates); the background
   task registers without error; opting out cancels all pending notifications.
