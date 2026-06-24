@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "description": "Breed seed for the dog-profile picker. Selecting a breed auto-fills brachycephalic / coat / size; the user can still override each toggle. 'Custom' is a sentinel meaning the user sets the characteristic toggles directly.",
+    "source": "RVC VetCompass; AKC breed groupings (plan.md Appendix A).",
+    "sizeBands": "small <10kg / medium 10-25kg / large 25-45kg / giant >45kg"
+  },
+  "breeds": [
+    { "name": "English Bulldog", "brachycephalic": true, "coat": "short", "size": "medium" },
+    { "name": "French Bulldog", "brachycephalic": true, "coat": "short", "size": "small" },
+    { "name": "Pug", "brachycephalic": true, "coat": "short", "size": "small" },
+    { "name": "Boston Terrier", "brachycephalic": true, "coat": "short", "size": "small" },
+    { "name": "Boxer", "brachycephalic": true, "coat": "short", "size": "large" },
+    { "name": "Shih Tzu", "brachycephalic": true, "coat": "medium", "size": "small" },
+    { "name": "Pekingese", "brachycephalic": true, "coat": "medium", "size": "small" },
+    { "name": "Cavalier King Charles Spaniel", "brachycephalic": true, "coat": "medium", "size": "small" },
+    { "name": "Chow Chow", "brachycephalic": true, "coat": "double_thick", "size": "medium" },
+    { "name": "Lhasa Apso", "brachycephalic": true, "coat": "medium", "size": "small" },
+    { "name": "Brussels Griffon", "brachycephalic": true, "coat": "medium", "size": "small" },
+    { "name": "Siberian Husky", "brachycephalic": false, "coat": "double_thick", "size": "medium" },
+    { "name": "Alaskan Malamute", "brachycephalic": false, "coat": "double_thick", "size": "large" },
+    { "name": "Golden Retriever", "brachycephalic": false, "coat": "double_thick", "size": "large" },
+    { "name": "Collie", "brachycephalic": false, "coat": "double_thick", "size": "large" },
+    { "name": "German Shepherd", "brachycephalic": false, "coat": "double_thick", "size": "large" },
+    { "name": "Samoyed", "brachycephalic": false, "coat": "double_thick", "size": "medium" },
+    { "name": "Bernese Mountain Dog", "brachycephalic": false, "coat": "double_thick", "size": "giant" },
+    { "name": "Labrador Retriever", "brachycephalic": false, "coat": "short", "size": "large" },
+    { "name": "Mixed breed / Other", "brachycephalic": false, "coat": "medium", "size": "medium" },
+    { "name": "Custom", "brachycephalic": false, "coat": "short", "size": "medium" }
+  ]
+}

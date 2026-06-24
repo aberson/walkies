@@ -43,6 +43,29 @@ export interface DogProfile {
 }
 
 /**
+ * User-tunable app settings (Step 4 storage; Step 7 wires the UI). Persisted
+ * under `walkies.settings.v1`. `schemaVersion` is a literal so a future
+ * migration can branch on it, mirroring `DogProfile`.
+ */
+export interface Settings {
+  /** Display unit for temperatures. */
+  temperatureUnit: 'F' | 'C';
+  /** Display unit for distances. */
+  distanceUnit: 'mi' | 'km';
+  /** Surface the verdict defaults to (overridable per-check later). */
+  defaultSurface: Surface;
+  /** Whether best-window local notifications are enabled. */
+  notificationsEnabled: boolean;
+  /**
+   * Whether the user has acknowledged the "informational, not veterinary
+   * advice" disclaimer. Optional — Step 7 owns the disclaimer UI; defaults to
+   * `false` (unacknowledged) when absent.
+   */
+  onboardingAcknowledged?: boolean;
+  schemaVersion: 1;
+}
+
+/**
  * One hour (or "now") of weather, already normalised to the units the domain
  * core expects. Produced by the data layer from NWS responses.
  */
