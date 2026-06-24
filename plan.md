@@ -370,6 +370,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #7
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Settings screen, units plumbing, disclaimer + acknowledgement gate.
+- **Status:** DONE (2026-06-23)
 - **Done when:** Component tests verify the units toggle changes displayed values; the
   disclaimer acknowledgement persists and gates first use.
 - **Depends on:** 5
