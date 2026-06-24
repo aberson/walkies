@@ -273,7 +273,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   `app.json` name "Can I Walk My Dog?", bundle id, and location/notification permission
   strings.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #1
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Bootable Expo app skeleton, passing placeholder test, green typecheck/lint.
 - **Done when:** `npx expo start` boots without error; `npm test`, `npm run typecheck`,
@@ -286,7 +286,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   `verdict.ts` (5-signal engine, Appendix E), `windows.ts`, and shared `types.ts`. No
   network, no RN, no storage.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #2
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Pure domain library + exhaustive unit tests.
 - **Done when:** Unit tests pass **including calibration assertions**: heat-index test
@@ -303,7 +303,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   `src/data/location.ts` (expo-location permission + lat/lon). Map raw JSON → `types.ts`.
   Handle timeouts, HTTP 403, non-US coordinates, and missing AQI gracefully.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #3
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Typed data clients with recorded-fixture tests.
 - **Done when:** Tests pass against captured NWS + Open-Meteo fixture responses; empty-AQI,
@@ -316,7 +316,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   seed list (auto-fills brachycephalic/coat/size characteristics) with a "custom" path,
   plus age, sex/neuter, weight + body-condition, coat, and health-condition toggles.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #4
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Persisted `DogProfile`, profile form UI, breed seed JSON.
 - **Done when:** Saving a profile and reloading the app restores it (storage unit test);
@@ -330,7 +330,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   duration, the binding reasons, an alerts list, and the "better windows today" strip.
   Implement loading, error, stale-cache, and location-permission-denied states.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #5
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Functional Home screen rendering real verdicts from live data.
 - **Done when:** Component tests render green/yellow/red, stale, error, and permission-denied
@@ -347,7 +347,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   must `cancelAllScheduledNotificationsAsync()` first, then re-schedule the current set — so
   the two trigger paths can never stack duplicate notifications for the same window.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #6
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Scheduling logic + registered background task + permission flow.
 - **Done when:** Unit tests cover window→notification payload building and the 24h/limit cap;
@@ -361,7 +361,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   attribution section (NWS + Open-Meteo), and the persistent **"informational, not
   veterinary advice"** disclaimer plus a one-time onboarding acknowledgement.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #7
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Settings screen, units plumbing, disclaimer + acknowledgement gate.
 - **Done when:** Component tests verify the units toggle changes displayed values; the
@@ -376,7 +376,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
   without network. This is the producer→consumer drift catch, distinct from the mocked unit
   tests.
 - **Type:** code
-- **Issue:** #
+- **Issue:** #8
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** One-shot live-pipeline smoke test + npm script `npm run smoke`.
 - **Done when:** `npm run smoke` completes one real cycle and prints a valid verdict without
@@ -388,7 +388,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 
 ### Step M1: Device smoke on Expo Go
 - **Source step:** Steps 4, 5, 7 (UI surfaces)
-- **Issue:** #
+- **Issue:** #9
 - **Commands:**
   ```powershell
   cd c:\Users\abero\dev\walkies
@@ -407,7 +407,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 
 ### Step M2: Notification + background soak (end-to-end observation)
 - **Source step:** Step 6
-- **Issue:** #
+- **Issue:** #10
 - **Type:** wait (run across part of a real day)
 - **Commands:**
   ```powershell
@@ -428,7 +428,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 
 ### Step M3: Pavement-temperature field calibration
 - **Source step:** Step 2 (`pavement.ts`)
-- **Issue:** #
+- **Issue:** #11
 - **Commands:**
   ```powershell
   # No commands — physical measurement. Record findings under documentation/field-checks/.
