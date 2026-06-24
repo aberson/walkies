@@ -50,7 +50,8 @@ Scan the QR with Expo Go (or the iOS camera). The app loads live and hot-reloads
 ```bash
 npm test            # Jest unit + component tests
 npm run typecheck   # tsc --noEmit
-npm run lint        # eslint
+npm run lint        # eslint + prettier --check
+npm run smoke       # live NWS + Open-Meteo → real verdict (needs network; excluded from npm test)
 ```
 
 On first launch: grant location, complete the one-time dog profile, land on the verdict
@@ -90,4 +91,11 @@ contracts, the heat-index formula, and the dog-risk model with citations).
 
 ## Status
 
-Plan complete; build in progress via the steps in [plan.md](plan.md) §11.
+**v1 automated build complete** — Steps 1–8 (issues #1–#8) closed. The full pipeline ships: the
+pure verdict engine (calibration-tested against published data), the NWS + Open-Meteo data layer
+(graceful degradation on 403/timeout/non-US/missing-AQI), dog-profile onboarding, the Home verdict
+screen, idempotent local-notification scheduling, settings/units/disclaimer, and a live end-to-end
+smoke gate. **246 tests passing, 0 type errors, 0 lint violations.**
+
+Remaining: manual device QA on a phone via Expo Go — M1 device smoke → M2 notification/background
+soak → M3 pavement field calibration (issues #9–#11).

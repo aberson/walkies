@@ -29,8 +29,8 @@ npm install            # install deps
 npx expo start         # dev server + QR for Expo Go on a phone
 npm test               # Jest unit + component tests
 npm run typecheck      # tsc --noEmit
-npm run lint           # eslint
-npm run smoke          # live NWS+Open-Meteo → domain pipeline smoke (added in Step 8)
+npm run lint           # eslint + prettier --check (formatting is gated)
+npm run smoke          # live NWS+Open-Meteo → domain pipeline smoke (network; excluded from npm test)
 ```
 
 ## 4. Directory layout
@@ -42,9 +42,10 @@ src/
   storage/     # profile, settings  (parse-guarded, versioned AsyncStorage keys)
   features/    # home (verdict screen), profile (onboarding/edit), settings (units + disclaimer)
   notifications/  # schedule, backgroundTask
-  app/         # expo-router routes
-  ui/          # shared components
-assets/        # icon, splash, breed seed JSON
+  app/         # expo-router routes (+ DisclaimerGate wrapper in _layout)
+  ui/          # shared components (VerdictCard, RiskBadge, WindowStrip, AlertRow) + format (°F/°C)
+  smoke/       # pipeline.smoke.ts — live-API end-to-end gate (npm run smoke)
+assets/        # icon, splash, breeds.json seed
 documentation/field-checks/   # M3 pavement calibration notes
 ```
 
@@ -65,10 +66,15 @@ documentation/field-checks/   # M3 pavement calibration notes
 
 ## 6. Current state
 
-**Plan written, no code yet.** Build via `/build-phase` over the 8 Automated Steps in
-[plan.md](plan.md) §11 (each `--reviewers code --isolation worktree`), then the Manual Steps
-M1 (Expo Go device smoke) → M2 (notification/background soak) → M3 (pavement field
-calibration). Update this section via `/repo-update` at the end of each phase.
+**v1 automated build COMPLETE (2026-06-24).** Steps 1–8 in [plan.md](plan.md) §11 are all built,
+reviewed (4-agent code-review gauntlet per step), and merged to `master`; issues #1–#8 closed.
+The full pipeline ships end-to-end: pure verdict engine → NWS + Open-Meteo data layer → profile
+storage → Home verdict screen → notification scheduling → settings/disclaimer → live smoke gate.
+**246 tests passing · 0 type errors · 0 lint violations · `npm run smoke` green.**
+
+**Remaining = manual device QA** on a phone via Expo Go (the §11 "Manual Steps", issues #9–#11):
+M1 device smoke → M2 notification/background soak → M3 pavement field calibration. **Run M1 next.**
+Update this section via `/repo-update` at the end of each future phase.
 
 ## 7. Environment requirements
 

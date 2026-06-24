@@ -63,7 +63,9 @@ describe('fetchJson', () => {
   it('maps a generic fetch rejection -> network-error', async () => {
     global.fetch = jest
       .fn()
-      .mockRejectedValue(new TypeError('Network request failed')) as unknown as typeof fetch;
+      .mockRejectedValue(
+        new TypeError('Network request failed'),
+      ) as unknown as typeof fetch;
     expect(await fetchJson('https://x')).toEqual({
       ok: false,
       reason: 'network-error',

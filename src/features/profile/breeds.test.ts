@@ -2,12 +2,7 @@
 // matches Appendix A's brachycephalic / double-coat lists and exposes a Custom
 // sentinel.
 
-import {
-  BREED_NAMES,
-  BREED_SEEDS,
-  CUSTOM_BREED,
-  breedSeed,
-} from './breeds';
+import { BREED_NAMES, BREED_SEEDS, CUSTOM_BREED, breedSeed } from './breeds';
 
 // Appendix A: brachycephalic TRUE list.
 const BRACHY = [

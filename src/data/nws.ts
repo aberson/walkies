@@ -31,7 +31,8 @@ export const NWS_BASE_URL = 'https://api.weather.gov';
  * for the email placeholder because plan §9 calls for a PROJECT contact, not a
  * personal email — the public repo is the durable, non-personal contact channel.
  */
-export const NWS_USER_AGENT = '(CanIWalkMyDog, https://github.com/aberson/walkies)';
+export const NWS_USER_AGENT =
+  '(CanIWalkMyDog, https://github.com/aberson/walkies)';
 
 const NWS_HEADERS: Record<string, string> = {
   'User-Agent': NWS_USER_AGENT,
@@ -187,10 +188,7 @@ function parseIso8601DurationMs(duration: string): number | null {
  * time-series for the interval whose [start, end) range contains `atMs`.
  * Returns 0 when no interval matches (the documented default).
  */
-export function skyCoverAt(
-  values: RawSkyCoverValue[],
-  atMs: number,
-): number {
+export function skyCoverAt(values: RawSkyCoverValue[], atMs: number): number {
   for (const entry of values) {
     if (typeof entry.validTime !== 'string') {
       continue;

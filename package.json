@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "test": "jest --watchAll=false",
     "smoke": "jest --config jest.smoke.config.js --watchAll=false",
-    "lint": "eslint .",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

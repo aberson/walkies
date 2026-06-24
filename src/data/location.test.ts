@@ -13,8 +13,7 @@ jest.mock('expo-location', () => ({
 
 const mockRequest =
   Location.requestForegroundPermissionsAsync as unknown as jest.Mock;
-const mockPosition =
-  Location.getCurrentPositionAsync as unknown as jest.Mock;
+const mockPosition = Location.getCurrentPositionAsync as unknown as jest.Mock;
 
 afterEach(() => {
   jest.clearAllMocks();

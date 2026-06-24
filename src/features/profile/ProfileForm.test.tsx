@@ -2,7 +2,12 @@
 // the Custom path, and a save-from-form round trip. AsyncStorage is mocked via
 // its bundled jest mock; storage functions are spied on the real module.
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react-native';
 import React from 'react';
 
 import * as profileStorage from '../../storage/profile';

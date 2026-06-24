@@ -215,7 +215,11 @@ describe('computeVerdict — pavement signal', () => {
     // exactly the PAVEMENT_YELLOW_F boundary (>= is yellow, < PAVEMENT_RED_F).
     const v = computeVerdict(
       input({
-        weather: weather({ airTempF: 65, relativeHumidity: 20, skyCoverPct: 0 }),
+        weather: weather({
+          airTempF: 65,
+          relativeHumidity: 20,
+          skyCoverPct: 0,
+        }),
         sunFactor: 1,
         profile: HEALTHY,
       }),

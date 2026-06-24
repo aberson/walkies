@@ -19,7 +19,8 @@ export interface BreedSeed {
 export const CUSTOM_BREED = 'Custom';
 
 /** The ordered seed list (picker options). */
-export const BREED_SEEDS: readonly BreedSeed[] = breedsJson.breeds as BreedSeed[];
+export const BREED_SEEDS: readonly BreedSeed[] =
+  breedsJson.breeds as BreedSeed[];
 
 /** Just the breed names, in picker order. */
 export const BREED_NAMES: readonly string[] = BREED_SEEDS.map((b) => b.name);

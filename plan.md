@@ -141,6 +141,8 @@ src/
     airQuality.ts        # Open-Meteo us_aqi (AirNow adapter stub for later)
     location.ts          # expo-location wrapper (permission + lat/lon)
     cache.ts             # in-memory TTL cache + AsyncStorage last-verdict
+    http.ts              # timeout-guarded fetch (single egress; AbortController)
+    result.ts            # DataResult discriminated union (ok/fail + reason)
   storage/
     profile.ts           # load/save DogProfile (parse-guarded, versioned)
     settings.ts          # load/save Settings
@@ -151,8 +153,9 @@ src/
   notifications/
     schedule.ts          # build + schedule local notifications from best windows + alerts
     backgroundTask.ts    # expo-background-fetch task: refetch + reschedule (best-effort)
-  app/                 # expo-router routes (index = home, /profile, /settings)
-  ui/                  # shared components (VerdictCard, RiskBadge, WindowStrip, AlertRow)
+  app/                 # expo-router routes (index = home, /profile, /settings; _layout wraps DisclaimerGate)
+  ui/                  # shared components (VerdictCard, RiskBadge, WindowStrip, AlertRow) + format.ts (°F/°C, mi/km display)
+  smoke/               # pipeline.smoke.ts — live-API end-to-end gate (npm run smoke; Step 8)
 ```
 
 ## 6. API Route Contract
@@ -317,7 +320,9 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Problem:** Implement `src/storage/profile.ts` + `settings.ts` (parse-guarded, versioned
   keys) and the `features/profile/` onboarding/edit form: breed picker from the Appendix A
   seed list (auto-fills brachycephalic/coat/size characteristics) with a "custom" path,
-  plus age, sex/neuter, weight + body-condition, coat, and health-condition toggles.
+  plus age, size (weight band), body-condition, coat (incl. dark-coat), and health-condition
+  toggles. *(Built to the Appendix A schema exactly — no sex/neuter or raw-weight field, as
+  neither is in the schema nor used by the verdict engine.)*
 - **Type:** code
 - **Issue:** #4
 - **Flags:** --reviewers code --isolation worktree
@@ -449,6 +454,26 @@ path over a real day — the end-to-end observation this app's always-on behavio
   | If estimates are systematically off | File a tuning issue to adjust `asphaltFullSunDelta` / `cloudFactor`; record before/after in `documentation/field-checks/` |
 
 **Please run M1 next** once the Automated Steps complete.
+
+## 11.1 Build Status — v1 Automated Build COMPLETE (2026-06-24)
+
+**Steps 1–8 all DONE (issues #1–#8 closed). 246 tests passing · 0 type errors · 0 lint
+violations · `npm run smoke` green (live NWS + Open-Meteo → real verdict).**
+
+| Step | Delivered | Iters | Notes |
+|---|---|---|---|
+| 1 Scaffold | Expo SDK 56, expo-router (`src/app`), strict TS, jest-expo + RNTL, ESLint/Prettier, `.gitattributes` | 1 | — |
+| 2 Domain core | `heatIndex`/`sunPosition`/`pavement`/`dogRisk`/`verdict`/`windows`/`types`; 4 calibration assertions | 2 | offset-direction (Appendix E literal wording inverted) + Air-Quality-Alert drop + NaN guard fixed |
+| 3 Data layer | `nws`/`airQuality`/`http`/`cache`/`location`; `DataResult` union; graceful degradation | 2 | `temperatureUnit` (°C-as-°F) + hung-body timeout fixed |
+| 4 Profile + storage | `storage/{profile,settings}`, `assets/breeds.json`, `features/profile/ProfileForm` | 1 | no dead sex/neuter/weight field (not in Appendix A) |
+| 5 Home screen | `features/home/useHomeVerdict` + `HomeScreen` + `ui/{VerdictCard,RiskBadge,WindowStrip,AlertRow}` | 2 | integration test caught an infinite-load loop; last-write race guard added |
+| 6 Notifications | `notifications/{schedule,backgroundTask}`; idempotent cancel-then-reschedule; wired into `_layout` | 2 | module was dead (no caller) — wired + tested |
+| 7 Settings | `features/settings/{SettingsScreen,DisclaimerGate}`; `ui/format` (°F/°C); one-time disclaimer gate | 1 | headline stays asphalt worst-case (§4.2) |
+| 8 Smoke gate | `src/smoke/pipeline.smoke.ts` + `npm run smoke`; live APIs → real verdict; network-gated | 1 | dedicated node-env jest config (jest-expo stubs `fetch`) |
+
+Every step ran dev → 4-agent code-review gauntlet → typecheck/lint/test gates → worktree merge.
+**Manual Steps M1–M3 (§11 "Manual Steps", issues #9–#11) remain** — operator-driven on a real
+phone via Expo Go. **Run M1 next.**
 
 ## 12. Appendix
 

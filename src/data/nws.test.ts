@@ -260,7 +260,8 @@ describe('fetchHourly', () => {
 
   it('excludes a temp-less period instead of fabricating 0F', async () => {
     // One of three periods has no temperature → only 2 valid snapshots remain.
-    const { temperature, ...templessPeriod } = hourlyFixture.properties.periods[0];
+    const { temperature, ...templessPeriod } =
+      hourlyFixture.properties.periods[0];
     void temperature;
     const mixed = {
       properties: {
@@ -351,7 +352,9 @@ describe('fetchAlerts', () => {
   it('returns an empty array (success) when there are no alerts', async () => {
     global.fetch = jest
       .fn()
-      .mockResolvedValue(jsonResponse(alertsEmptyFixture)) as unknown as typeof fetch;
+      .mockResolvedValue(
+        jsonResponse(alertsEmptyFixture),
+      ) as unknown as typeof fetch;
     const res = await fetchAlerts(44.96, -93.27);
     expect(res).toEqual({ ok: true, data: [] });
   });

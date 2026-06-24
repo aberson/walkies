@@ -55,7 +55,9 @@ describe('fetchAirQuality', () => {
   it('degrades a missing/null AQI to { usAqi: null } without throwing', async () => {
     global.fetch = jest
       .fn()
-      .mockResolvedValue(jsonResponse(aqMissingFixture)) as unknown as typeof fetch;
+      .mockResolvedValue(
+        jsonResponse(aqMissingFixture),
+      ) as unknown as typeof fetch;
     const res = await fetchAirQuality(44.96, -93.27);
     expect(res).toEqual({ ok: true, data: { usAqi: null } });
   });
@@ -63,7 +65,9 @@ describe('fetchAirQuality', () => {
   it('returns bad-response when current is missing entirely', async () => {
     global.fetch = jest
       .fn()
-      .mockResolvedValue(jsonResponse({ latitude: 1 })) as unknown as typeof fetch;
+      .mockResolvedValue(
+        jsonResponse({ latitude: 1 }),
+      ) as unknown as typeof fetch;
     const res = await fetchAirQuality(1, 2);
     expect(res).toEqual({ ok: false, reason: 'bad-response' });
   });
