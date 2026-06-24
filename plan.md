@@ -290,6 +290,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #2
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Pure domain library + exhaustive unit tests.
+- **Status:** DONE (2026-06-23)
 - **Done when:** Unit tests pass **including calibration assertions**: heat-index test
   vectors match NWS examples within ±1°F; pavement model yields ~125°F for 77°F air in full
   clear-noon sun on asphalt (±5°F); a brachycephalic senior reaches `red` at a strictly
