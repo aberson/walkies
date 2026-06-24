@@ -322,6 +322,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #4
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Persisted `DogProfile`, profile form UI, breed seed JSON.
+- **Status:** DONE (2026-06-23)
 - **Done when:** Saving a profile and reloading the app restores it (storage unit test);
   selecting "French Bulldog" auto-sets brachycephalic=true (component test); corrupt stored
   JSON re-onboards instead of crashing.
