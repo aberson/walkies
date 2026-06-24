@@ -337,6 +337,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #5
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** Functional Home screen rendering real verdicts from live data.
+- **Status:** DONE (2026-06-23)
 - **Done when:** Component tests render green/yellow/red, stale, error, and permission-denied
   states from mocked inputs; the screen reaches the real domain engine (not a stub). Device
   check deferred to M1.
