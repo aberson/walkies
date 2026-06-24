@@ -1,22 +1,18 @@
-import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { HomeScreen } from '../features/home';
 
 /**
- * Home screen (placeholder). Step 5 replaces this with the verdict screen:
- * the 🟢/🟡/🔴 VerdictCard, estimated pavement temp, recommended duration,
- * reasons, alerts, and the best-windows strip.
+ * Home route (Step 5): the verdict screen. Renders HomeScreen, which uses the
+ * useHomeVerdict controller to orchestrate location → live data → the pure
+ * domain engine and shows the 🟢/🟡/🔴 VerdictCard, best-windows strip, active
+ * alerts, and all degradation states (loading / stale / error / permission /
+ * onboarding).
  */
-export default function HomeScreen() {
+export default function Home() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-      <Text style={styles.subtitle}>Can I Walk My Dog?</Text>
-      <Link href="/profile" style={styles.link}>
-        Dog Profile
-      </Link>
-      <Link href="/settings" style={styles.link}>
-        Settings
-      </Link>
+      <HomeScreen />
     </View>
   );
 }
@@ -24,22 +20,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-    padding: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#555',
-  },
-  link: {
-    fontSize: 18,
-    color: '#1d6fe0',
-    paddingVertical: 4,
   },
 });
