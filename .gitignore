@@ -7,6 +7,12 @@ dist/
 web-build/
 expo-env.d.ts
 
+# Test coverage
+coverage/
+
+# Logs
+*.log
+
 # Native
 *.orig.*
 *.jks
