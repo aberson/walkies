@@ -386,6 +386,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #8
 - **Flags:** --reviewers code --isolation worktree
 - **Produces:** One-shot live-pipeline smoke test + npm script `npm run smoke`.
+- **Status:** DONE (2026-06-23)
 - **Done when:** `npm run smoke` completes one real cycle and prints a valid verdict without
   crashing; assertion failures name the offending field.
 - **Depends on:** 2, 3
