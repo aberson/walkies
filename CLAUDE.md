@@ -1,4 +1,4 @@
-# dogwalk — "Can I Walk My Dog?"
+# walkies — "Can I Walk My Dog?"
 
 ## 1. Project overview
 

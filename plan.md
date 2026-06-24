@@ -48,13 +48,13 @@ all weather/AQI data is fetched live and cached briefly in memory.
 
 | Key | Shape | Notes |
 |---|---|---|
-| `dogwalk.profile.v1` | `DogProfile` JSON (see Appendix A) | The single dog profile. Versioned key suffix (`.v1`) so a future schema change can migrate rather than corrupt. |
-| `dogwalk.settings.v1` | `Settings` JSON (units, default walk surface, notification opt-in) | App preferences. |
-| `dogwalk.cache.lastVerdict.v1` | `{ verdict, fetchedAt, lat, lon }` | Last computed verdict, shown instantly on cold start while a fresh fetch runs (offline-friendly). |
+| `walkies.profile.v1` | `DogProfile` JSON (see Appendix A) | The single dog profile. Versioned key suffix (`.v1`) so a future schema change can migrate rather than corrupt. |
+| `walkies.settings.v1` | `Settings` JSON (units, default walk surface, notification opt-in) | App preferences. |
+| `walkies.cache.lastVerdict.v1` | `{ verdict, fetchedAt, lat, lon }` | Last computed verdict, shown instantly on cold start while a fresh fetch runs (offline-friendly). |
 
 - **Identification:** there is exactly one dog profile in v1, so its identity is the fixed
-  key `dogwalk.profile.v1` (no per-dog id needed). When multi-dog lands (later phase), the
-  store becomes `dogwalk.profiles.v1 → { [dogId: uuid]: DogProfile }`; `dogId` will be a
+  key `walkies.profile.v1` (no per-dog id needed). When multi-dog lands (later phase), the
+  store becomes `walkies.profiles.v1 → { [dogId: uuid]: DogProfile }`; `dogId` will be a
   `crypto.randomUUID()` v4 string. Documented now so the v1 single-profile shape is a clean
   subset.
 - **Deduplication / corruption protection:** every read is wrapped in a parse-guard — on
@@ -164,7 +164,7 @@ captured verbatim in Appendix B so the `data/` layer can be built without re-der
 ## 7. Project Structure
 
 ```
-dogwalk/
+walkies/
   plan.md                  # this document
   CLAUDE.md                # project context for future sessions
   app.json / app.config.ts # Expo config (name, icon, permissions strings, plugins)
@@ -232,7 +232,7 @@ dogwalk/
 
 ```powershell
 # Prereqs: Node 20 LTS, then the Expo CLI is invoked via npx (no global install needed).
-cd c:\Users\abero\dev\dogwalk
+cd c:\Users\abero\dev\walkies
 npm install
 npx expo start                 # opens the dev server + QR code
 ```
@@ -391,7 +391,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Issue:** #
 - **Commands:**
   ```powershell
-  cd c:\Users\abero\dev\dogwalk
+  cd c:\Users\abero\dev\walkies
   npx expo start
   # Scan the QR with Expo Go on the phone.
   ```
@@ -411,7 +411,7 @@ path over a real day — the end-to-end observation this app's always-on behavio
 - **Type:** wait (run across part of a real day)
 - **Commands:**
   ```powershell
-  cd c:\Users\abero\dev\dogwalk
+  cd c:\Users\abero\dev\walkies
   npx expo start
   # On the phone: enable notifications; set a vulnerable dog profile (e.g., senior bulldog);
   # leave the app backgrounded. To force a near-term test, temporarily set a window a few
