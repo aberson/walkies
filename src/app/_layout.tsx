@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 
+import { DisclaimerGate } from '../features/settings';
 import { reschedule, registerBackgroundRefresh } from '../notifications';
 
 /**
@@ -14,7 +15,13 @@ import { reschedule, registerBackgroundRefresh } from '../notifications';
  * a rejection or a thrown sync error can never crash the app, and an
  * unsupported platform (web) simply no-ops. `reschedule()` itself gates on
  * Settings.notificationsEnabled and cancels-then-schedules, so it is safe to
- * call unconditionally. The Settings opt-in toggle UI is Step 7, not here.
+ * call unconditionally.
+ *
+ * The whole navigator is wrapped in `DisclaimerGate` (Step 7) so first use is
+ * gated behind the §8 "informational, not veterinary advice" acknowledgement —
+ * until the user taps "I understand", the app content (including Home) is not
+ * shown. The gate is best-effort/no-crash and persists the acknowledgement, so
+ * it never reappears after the first time.
  */
 export default function RootLayout() {
   useEffect(() => {
@@ -30,10 +37,12 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: 'Can I Walk My Dog?' }} />
-      <Stack.Screen name="profile" options={{ title: 'Dog Profile' }} />
-      <Stack.Screen name="settings" options={{ title: 'Settings' }} />
-    </Stack>
+    <DisclaimerGate>
+      <Stack>
+        <Stack.Screen name="index" options={{ title: 'Can I Walk My Dog?' }} />
+        <Stack.Screen name="profile" options={{ title: 'Dog Profile' }} />
+        <Stack.Screen name="settings" options={{ title: 'Settings' }} />
+      </Stack>
+    </DisclaimerGate>
   );
 }

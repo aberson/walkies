@@ -1,15 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { SettingsScreen } from '../features/settings';
 
 /**
- * Settings screen (placeholder). Step 7 replaces this with the units toggle
- * (°F/°C, mi/km), default walk-surface selector, notifications opt-in, a
- * data-source/attribution section, and the persistent "informational, not
- * veterinary advice" disclaimer + one-time onboarding acknowledgement.
+ * Settings route (Step 7): renders SettingsScreen, which provides the units
+ * toggles (°F/°C, mi/km), the default walk-surface selector, the notifications
+ * opt-in (wired to setNotificationsEnabled), a data-source/attribution section
+ * (NWS + Open-Meteo), and the persistent "informational, not veterinary advice"
+ * disclaimer (plan §3.1, §8). The one-time onboarding acknowledgement gate
+ * (DisclaimerGate) is mounted at the app root in _layout.tsx.
  */
-export default function SettingsScreen() {
+export default function Settings() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
+      <SettingsScreen />
     </View>
   );
 }
@@ -17,12 +21,5 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
   },
 });

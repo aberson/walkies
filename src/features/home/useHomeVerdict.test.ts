@@ -73,6 +73,7 @@ function forecast(hours: WeatherSnapshot[], alerts: Alert[] = []): NwsForecast {
 function deps(over: {
   location?: LocationResult;
   profile?: DogProfile | null;
+  settings?: import('../../domain/types').Settings;
   forecastRes?: DataResult<NwsForecast>;
   aqiRes?: DataResult<AirQuality>;
   lastVerdict?: LastVerdict | null;
@@ -82,6 +83,15 @@ function deps(over: {
       over.location ?? { ok: true, data: MPLS },
     loadProfile: async () =>
       over.profile === undefined ? HEALTHY_PROFILE : over.profile,
+    loadSettings: async () =>
+      over.settings ?? {
+        temperatureUnit: 'F',
+        distanceUnit: 'mi',
+        defaultSurface: 'asphalt',
+        notificationsEnabled: false,
+        onboardingAcknowledged: true,
+        schemaVersion: 1,
+      },
     fetchForecast: async () =>
       over.forecastRes ?? ok(forecast(comfortableHours(12, 60))),
     fetchAirQuality: async () => over.aqiRes ?? ok({ usAqi: 20 }),
@@ -104,6 +114,23 @@ describe('loadHomeVerdict', () => {
     expect(vm.status).toBe('success');
     expect(vm.verdict?.level).toBe('green');
     expect(vm.windows?.length).toBeGreaterThan(0);
+  });
+
+  it('threads the persisted temperatureUnit onto the success view-model', async () => {
+    const vm = await loadHomeVerdict(
+      deps({
+        settings: {
+          temperatureUnit: 'C',
+          distanceUnit: 'km',
+          defaultSurface: 'asphalt',
+          notificationsEnabled: false,
+          onboardingAcknowledged: true,
+          schemaVersion: 1,
+        },
+      }),
+    );
+    expect(vm.status).toBe('success');
+    expect(vm.temperatureUnit).toBe('C');
   });
 
   it('permission denied → permission-denied (no throw)', async () => {

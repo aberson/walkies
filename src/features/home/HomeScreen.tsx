@@ -153,7 +153,11 @@ export default function HomeScreen({ deps }: HomeScreenProps) {
           <RefreshControl refreshing={false} onRefresh={refresh} />
         }
       >
-        <VerdictCard verdict={model.verdict} dogName={model.dogName} />
+        <VerdictCard
+          verdict={model.verdict}
+          dogName={model.dogName}
+          temperatureUnit={model.temperatureUnit ?? 'F'}
+        />
 
         {alerts.length > 0 ? (
           <View style={styles.alerts} testID="home-alerts">

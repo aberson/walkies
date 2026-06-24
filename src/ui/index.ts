@@ -12,3 +12,5 @@ export type { WindowStripProps } from './WindowStrip';
 
 export { default as AlertRow } from './AlertRow';
 export type { AlertRowProps } from './AlertRow';
+
+export { fToC, milesToKm, formatTemperature, formatDistance } from './format';

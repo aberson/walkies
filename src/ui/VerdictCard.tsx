@@ -5,8 +5,9 @@
 
 import { StyleSheet, Text, View } from 'react-native';
 
-import type { Verdict } from '../domain/types';
+import type { Settings, Verdict } from '../domain/types';
 
+import { formatTemperature } from './format';
 import { LEVEL_META } from './RiskBadge';
 
 /**
@@ -23,6 +24,13 @@ export interface VerdictCardProps {
   verdict: Verdict;
   /** Optional dog name for the headline ("Biscuit: …"). */
   dogName?: string;
+  /**
+   * Display unit for the pavement temperature. Defaults to 'F' so existing
+   * callers/tests are unaffected; the Home flow threads the user's Settings unit
+   * (Step 7). DISPLAY-ONLY — the domain stays in °F (asphalt worst-case math
+   * unchanged).
+   */
+  temperatureUnit?: Settings['temperatureUnit'];
   testID?: string;
 }
 
@@ -38,6 +46,7 @@ function durationText(minutes: number): string {
 export default function VerdictCard({
   verdict,
   dogName,
+  temperatureUnit = 'F',
   testID,
 }: VerdictCardProps) {
   const meta = LEVEL_META[verdict.level];
@@ -65,9 +74,9 @@ export default function VerdictCard({
 
       <View style={styles.pavementRow}>
         <Text style={styles.pavementLabel}>Estimated asphalt</Text>
-        <Text style={styles.pavementValue}>
+        <Text style={styles.pavementValue} testID="pavement-value">
           {Number.isFinite(verdict.pavementTempF)
-            ? `~${Math.round(verdict.pavementTempF)}°F`
+            ? `~${formatTemperature(verdict.pavementTempF, temperatureUnit)}`
             : '—'}
         </Text>
       </View>

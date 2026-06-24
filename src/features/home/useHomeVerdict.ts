@@ -38,12 +38,16 @@ import type {
   Alert,
   DogProfile,
   GeoPoint,
+  Settings,
   Verdict,
   WeatherSnapshot,
 } from '../../domain/types';
 import type { WalkWindow } from '../../domain/windows';
 import type { NwsForecast } from '../../data/nws';
-import { loadProfile as realLoadProfile } from '../../storage';
+import {
+  loadProfile as realLoadProfile,
+  loadSettings as realLoadSettings,
+} from '../../storage';
 
 /** Discriminated view-model status the Home screen renders. */
 export type HomeStatus =
@@ -65,6 +69,12 @@ export interface HomeViewModel {
   alerts?: Alert[];
   /** The dog's name (for the headline greeting), when a profile is loaded. */
   dogName?: string;
+  /**
+   * The user's chosen display temperature unit (Settings, Step 7). Present on
+   * 'success' so the verdict card can render the pavement temp in °F/°C. Defaults
+   * to 'F' when settings are unreadable.
+   */
+  temperatureUnit?: Settings['temperatureUnit'];
   /** ISO time the rendered data was computed/fetched. */
   fetchedAt?: string;
   /**
@@ -84,6 +94,8 @@ export interface HomeViewModel {
 export interface HomeDeps {
   getCurrentLocation: () => Promise<LocationResult>;
   loadProfile: () => Promise<DogProfile | null>;
+  /** Load the user's display Settings (units). Never throws (defaults on failure). */
+  loadSettings: () => Promise<Settings>;
   fetchForecast: (lat: number, lon: number) => Promise<DataResult<NwsForecast>>;
   fetchAirQuality: (
     lat: number,
@@ -98,6 +110,7 @@ export interface HomeDeps {
 const defaultDeps: HomeDeps = {
   getCurrentLocation: realGetCurrentLocation,
   loadProfile: realLoadProfile,
+  loadSettings: realLoadSettings,
   fetchForecast: realFetchForecast,
   fetchAirQuality: realFetchAirQuality,
   loadLastVerdict: realLoadLastVerdict,
@@ -170,6 +183,12 @@ export async function loadHomeVerdict(
   }
   const dogName = profile.name.trim() || undefined;
 
+  // 2b. Display settings (units). A soft signal: loadSettings never throws and
+  //     falls back to DEFAULT_SETTINGS, so the unit is always defined. Used for
+  //     DISPLAY only — the domain engine below is fed raw °F regardless.
+  const settings = await deps.loadSettings();
+  const temperatureUnit = settings.temperatureUnit;
+
   // 3. Live data. The forecast (points→hourly→alerts) is the hard dependency;
   //    AQI degrades softly to { usAqi: null } so a verdict can still render.
   const forecastRes = await deps.fetchForecast(point.lat, point.lon);
@@ -237,6 +256,7 @@ export async function loadHomeVerdict(
     windows,
     alerts: forecast.alerts,
     dogName,
+    temperatureUnit,
     fetchedAt,
   };
 }

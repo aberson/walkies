@@ -19,6 +19,7 @@ import type {
   AirQuality,
   Alert,
   DogProfile,
+  Settings,
   WeatherSnapshot,
 } from '../../domain/types';
 import type { NwsForecast } from '../../data/nws';
@@ -108,9 +109,20 @@ function forecast(hours: WeatherSnapshot[], alerts: Alert[] = []): NwsForecast {
 }
 
 /** A fully-mocked, granted, profiled, deterministic dep set. Domain stays real. */
+/** Default display settings (US units, acknowledged) unless a test overrides. */
+const DEFAULT_TEST_SETTINGS: Settings = {
+  temperatureUnit: 'F',
+  distanceUnit: 'mi',
+  defaultSurface: 'asphalt',
+  notificationsEnabled: false,
+  onboardingAcknowledged: true,
+  schemaVersion: 1,
+};
+
 function makeDeps(over: {
   location?: LocationResult;
   profile?: DogProfile | null;
+  settings?: Settings;
   forecastRes?: DataResult<NwsForecast>;
   aqiRes?: DataResult<AirQuality>;
   lastVerdict?: LastVerdict | null;
@@ -124,6 +136,7 @@ function makeDeps(over: {
     loadProfile: jest.fn(async () =>
       over.profile === undefined ? HEALTHY_PROFILE : over.profile,
     ),
+    loadSettings: jest.fn(async () => over.settings ?? DEFAULT_TEST_SETTINGS),
     fetchForecast: jest.fn(
       async () => over.forecastRes ?? ok(forecast(comfortableHours(12, 60))),
     ),
@@ -280,6 +293,37 @@ describe('HomeScreen — content & refresh', () => {
     render(<HomeScreen deps={deps} />);
     await screen.findByTestId('verdict-card-green');
     expect(screen.getByTestId('seven-second-note')).toBeTruthy();
+  });
+
+  it('threads the temperatureUnit setting into the verdict card (°F vs °C, done-when)', async () => {
+    // Same comfortable 60°F forecast (pre-dawn → pavement == air == 60°F);
+    // ONLY the persisted display unit differs. The displayed pavement value must
+    // change with the setting, proving units thread end-to-end into the card.
+    const fForecast = ok(forecast(comfortableHours(12, 60)));
+
+    const fDeps = makeDeps({
+      forecastRes: fForecast,
+      aqiRes: ok({ usAqi: 20 }),
+      settings: { ...DEFAULT_TEST_SETTINGS, temperatureUnit: 'F' },
+    });
+    const { unmount } = render(<HomeScreen deps={fDeps} />);
+    await screen.findByTestId('verdict-card-green');
+    expect(screen.getByTestId('pavement-value').props.children).toContain(
+      '60°F',
+    );
+    unmount();
+
+    const cDeps = makeDeps({
+      forecastRes: ok(forecast(comfortableHours(12, 60))),
+      aqiRes: ok({ usAqi: 20 }),
+      settings: { ...DEFAULT_TEST_SETTINGS, temperatureUnit: 'C' },
+    });
+    render(<HomeScreen deps={cDeps} />);
+    await screen.findByTestId('verdict-card-green');
+    // 60°F → 15.56°C → rounds to 16°C. Different displayed value.
+    const shown = screen.getByTestId('pavement-value').props.children;
+    expect(shown).toContain('16°C');
+    expect(shown).not.toContain('60°F');
   });
 
   it('shows "good all day" when the headline is green and the whole day is walkable', async () => {

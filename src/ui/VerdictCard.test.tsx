@@ -48,6 +48,29 @@ describe('VerdictCard', () => {
     expect(screen.queryByText(/NaN/)).toBeNull();
   });
 
+  it('toggling temperatureUnit °F↔°C changes the DISPLAYED pavement value (done-when)', () => {
+    // Same domain Verdict (pavementTempF: 125), only the display unit changes.
+    const v = verdict({ pavementTempF: 125 });
+
+    const { rerender } = render(
+      <VerdictCard verdict={v} temperatureUnit="F" />,
+    );
+    expect(screen.getByTestId('pavement-value').props.children).toContain(
+      '125°F',
+    );
+
+    // Flip to °C: 125°F → 52°C. The displayed value must change.
+    rerender(<VerdictCard verdict={v} temperatureUnit="C" />);
+    const shown = screen.getByTestId('pavement-value').props.children;
+    expect(shown).toContain('52°C');
+    expect(shown).not.toContain('125°F');
+  });
+
+  it('defaults to °F when no temperatureUnit prop is given', () => {
+    render(<VerdictCard verdict={verdict({ pavementTempF: 100 })} />);
+    expect(screen.getByText('~100°F')).toBeTruthy();
+  });
+
   it('renders "potty break only" for a red 0-minute verdict', () => {
     render(
       <VerdictCard

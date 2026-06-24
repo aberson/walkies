@@ -16,6 +16,13 @@ import React from 'react';
 
 import RootLayout from './_layout';
 
+// RootLayout now wraps the navigator in DisclaimerGate, which reads Settings from
+// AsyncStorage on mount; provide its bundled jest mock so the module loads.
+jest.mock('@react-native-async-storage/async-storage', () =>
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+);
+
 // expo-router's Stack is a native navigator; stub it (and Stack.Screen) so the
 // root layout renders without the real navigator.
 jest.mock('expo-router', () => {
@@ -34,9 +41,12 @@ jest.mock('expo-router', () => {
 // not what they do (their behavior is covered in notifications/*.test.ts).
 const mockReschedule = jest.fn(async () => {});
 const mockRegisterBackgroundRefresh = jest.fn(async () => true);
+// setNotificationsEnabled is imported transitively (SettingsScreen, pulled in by
+// DisclaimerGate's DISCLAIMER_TEXT import); stub it so the mock is complete.
 jest.mock('../notifications', () => ({
   reschedule: () => mockReschedule(),
   registerBackgroundRefresh: () => mockRegisterBackgroundRefresh(),
+  setNotificationsEnabled: jest.fn(async () => ({ granted: true })),
 }));
 
 describe('RootLayout — production-caller notification wiring (silent-wiring guard)', () => {
