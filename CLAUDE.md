@@ -42,7 +42,11 @@ src/
   storage/     # profile, settings  (parse-guarded, versioned AsyncStorage keys)
   features/    # home (verdict screen), profile (onboarding/edit), settings (units + disclaimer)
   notifications/  # schedule, backgroundTask
-  app/         # expo-router routes (+ DisclaimerGate wrapper in _layout)
+  app/         # expo-router routes (+ DisclaimerGate wrapper in _layout) — NO *.test.* files here
+  route-tests/ # tests FOR the app/ routes. NOT colocated under app/ on purpose: expo-router
+               #   globs every file in app/ via require.context, so a colocated *.test.tsx gets
+               #   bundled onto the device, dragging in @testing-library (Node `console`) and
+               #   breaking the build. Keep route tests here; import the route via ../app/<route>.
   ui/          # shared components (VerdictCard, RiskBadge, WindowStrip, AlertRow) + format (°F/°C)
   smoke/       # pipeline.smoke.ts — live-API end-to-end gate (npm run smoke)
 assets/        # icon, splash, breeds.json seed

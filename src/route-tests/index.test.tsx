@@ -1,6 +1,6 @@
-// src/app/index.test.tsx — the Home ROUTE (Step 5). Verifies the expo-router
-// index route renders the real HomeScreen and reaches a view-model state without
-// crashing. The route passes NO deps, so the data/location/storage MODULES are
+// src/route-tests/index.test.tsx — the Home ROUTE (Step 5). Verifies the
+// expo-router index route renders the real HomeScreen and reaches a view-model
+// state without crashing. The route passes NO deps, so the data/location/storage MODULES are
 // mocked here (the domain engine stays real). The deep verdict-level + state
 // matrix lives in features/home/HomeScreen.test.tsx.
 //
@@ -23,7 +23,7 @@ import React from 'react';
 import type { DogProfile } from '../domain/types';
 import type { LocationResult } from '../data/location';
 
-import Home from './index';
+import Home from '../app/index';
 
 jest.mock('@react-native-async-storage/async-storage', () =>
   // eslint-disable-next-line @typescript-eslint/no-require-imports

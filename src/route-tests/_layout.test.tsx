@@ -1,4 +1,4 @@
-// src/app/_layout.test.tsx — the ROOT route (production caller) wires the
+// src/route-tests/_layout.test.tsx — the ROOT route (production caller) wires the
 // notification entry points on mount (plan §6 foreground refresh-on-open, §9
 // background-fetch registration). This is the code-quality.md "integration test
 // through the production caller" guard against SILENT WIRING: the notification
@@ -14,7 +14,7 @@
 import { render } from '@testing-library/react-native';
 import React from 'react';
 
-import RootLayout from './_layout';
+import RootLayout from '../app/_layout';
 
 // RootLayout now wraps the navigator in DisclaimerGate, which reads Settings from
 // AsyncStorage on mount; provide its bundled jest mock so the module loads.
